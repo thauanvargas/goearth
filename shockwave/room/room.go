@@ -204,6 +204,7 @@ func (tile Tile) ToPoint() Point {
 }
 
 type EntityBase struct {
+	UserId int
 	Index  int
 	Name   string
 	Figure string
