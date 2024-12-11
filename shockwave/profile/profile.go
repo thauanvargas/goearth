@@ -8,7 +8,7 @@ import (
 )
 
 type Profile struct {
-	UserId				    int
+	UserId                  int
 	Name                    string
 	Figure                  string
 	Gender                  string
@@ -36,7 +36,7 @@ func (profile *Profile) Parse(p *g.Packet, pos *int) {
 		case "user_id":
 			n, err := strconv.Atoi(val)
 			if err != nil {
-				dbg.Printf("WARNING: invalid integer for ph_tickets: %q", val)
+				dbg.Printf("WARNING: invalid integer for user_id: %q", val)
 				continue
 			}
 			profile.UserId = n
