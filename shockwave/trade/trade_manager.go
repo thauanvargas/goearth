@@ -12,7 +12,7 @@ var dbg = debug.NewLogger("[trade]")
 
 // Manager tracks the state of trades.
 type Manager struct {
-	ext       *g.Ext
+	ix        g.Interceptor
 	updated   g.Event[Args]
 	accepted  g.Event[AcceptArgs]
 	completed g.Event[Args]
@@ -23,8 +23,8 @@ type Manager struct {
 }
 
 // NewManager creates a new trade Manager using the provided extension.
-func NewManager(ext *g.Ext) *Manager {
-	mgr := &Manager{ext: ext}
+func NewManager(ext g.Interceptor) *Manager {
+	mgr := &Manager{ix: ext}
 	ext.Intercept(in.TRADE_ITEMS).With(mgr.handleTradeItems)
 	ext.Intercept(in.TRADE_ACCEPT).With(mgr.handleTradeAccept)
 	ext.Intercept(in.TRADE_CLOSE).With(mgr.handleTradeClose)
@@ -45,12 +45,12 @@ func (mgr *Manager) OfferItem(item inventory.Item) {
 
 // Accept accepts the trade.
 func (mgr *Manager) Accept() {
-	mgr.ext.Send(out.TRADE_ACCEPT)
+	mgr.ix.Send(out.TRADE_ACCEPT)
 }
 
 // Unaccept unaccepts the trade.
 func (mgr *Manager) Unaccept() {
-	mgr.ext.Send(out.TRADE_UNACCEPT)
+	mgr.ix.Send(out.TRADE_UNACCEPT)
 }
 
 func (mgr *Manager) handleTradeItems(e *g.Intercept) {
