@@ -19,11 +19,10 @@ func (offers Offers) Tradee() Offer {
 
 // Offer represents a user's offer in a trade.
 type Offer struct {
-	Accepted bool
-	Name    string
-	UserId     int
+	Accepted  bool
+	UserId    int
 	ItemCount int
-	Items    []TradeItem
+	Items     []TradeItem
 }
 
 type TradeItem struct {
