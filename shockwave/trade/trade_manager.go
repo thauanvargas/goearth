@@ -35,7 +35,7 @@ func NewManager(ext g.Interceptor) *Manager {
 // Offer offers an item with the specified ID in the current trade.
 func (mgr *Manager) Offer(itemId int) {
 	// The item ID was changed from a string to int
-	mgr.ext.Send(out.TRADE_ADDITEM, itemId)
+	mgr.ix.Send(out.TRADE_ADDITEM, itemId)
 }
 
 // OfferItem offers the specified inventory item in the current trade.
